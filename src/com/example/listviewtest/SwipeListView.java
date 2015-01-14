@@ -66,21 +66,13 @@ public class SwipeListView extends ListView {
 			if (mOnListViewScrollListener != null) {
 				mState = mOnListViewScrollListener.onScroll(distanceY);
 				if (mState != State.NORMAL) {
-					if (mState == State.BOTTOM) {
-						lastY = 0.f;
-						tempY = 0.f;
-						distanceY = 0;
-						mListViewFocus = false;
-					}
-					if (mState == State.TOP) {
-						getHandler().post(new Runnable() {
-							@Override
-							public void run() {
-								setSelection(0);
-							}
-						});
-						mListViewFocus = true;
-					}
+					getHandler().post(new Runnable() {
+						@Override
+						public void run() {
+							setSelection(0);
+						}
+					});
+					mListViewFocus = (mState == State.TOP);
 				}
 			}
 			break;
